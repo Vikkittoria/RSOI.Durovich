@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор курса</title>
+    <style>
+        body {
+            font-family: 'Oswald';
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .container {
+            display: grid;
+            margin: 0 0;
+            position: relative;
+            height: 82vh;
+
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        label {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select {
+            font-size: 18px;
+            padding: 10px 15px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .course-description {
+            font-size: 18px;
+
+            }
+
+            .course-description p {
+                margin-bottom: 10px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 10px 15px;
+                background-color: blue;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #007bff;
+            }
+
+            @media (max-width: 600px) {
+                .container {
+                    padding: 20px 10px;
+                }
+
+                h1 {
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                }
+
+                label, select, .course-description, button {
+                    font-size: 16px;
+                }
+            }
+
+            .footer{
+                /* margin-top: 5.5%; */
+                background-color: #000000;
+                color: #fff;
+                /* padding: 20px; */
+                text-align: center;
+            }
+
+
+            .first-block {
+                display: grid;
+                color: black;
+                background-position: center;
+                height: 40vh;
+                justify-content: center;
+                align-items: center;
+            }
+
+
+            .second-block{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 4%;
+                margin-bottom: 4%;
+            }
+
+            /* Header styles */
+        .header {
+            display: flex;
+            background-color: #000000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+           function showDescription() {
+                var selectBox = document.getElementById("course-select");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+                if (selectedValue === "A") {
+                    document.getElementById("1").style.display = "flex";
+                    document.getElementById("2").style.display = "none";
+                    document.getElementById("3").style.display = "none";
+                    document.getElementById("4").style.display = "none";
+                    document.getElementById("5").style.display = "none";
+                } else if (selectedValue === "B") {
+                    document.getElementById("1").style.display = "none";
+                    document.getElementById("2").style.display = "flex";
+                    document.getElementById("3").style.display = "none";
+                    document.getElementById("4").style.display = "none";
+                    document.getElementById("5").style.display = "none";
+                } else if (selectedValue === "C") {
+                    document.getElementById("1").style.display = "none";
+                    document.getElementById("2").style.display = "none";
+                    document.getElementById("3").style.display = "flex";
+                    document.getElementById("4").style.display = "none";
+                    document.getElementById("5").style.display = "none";
+                } else if (selectedValue === "D") {
+                    document.getElementById("1").style.display = "none";
+                    document.getElementById("2").style.display = "none";
+                    document.getElementById("3").style.display = "none";
+                    document.getElementById("4").style.display = "flex";
+                    document.getElementById("5").style.display = "none";
+                } else if (selectedValue === "E") {
+                    document.getElementById("1").style.display = "none";
+                    document.getElementById("2").style.display = "none";
+                    document.getElementById("3").style.display = "none";
+                    document.getElementById("4").style.display = "none";
+                    document.getElementById("5").style.display = "flex";
+                } else {
+                    document.getElementById("1").style.display = "none";
+                    document.getElementById("2").style.display = "none";
+                    document.getElementById("3").style.display = "none";
+                    document.getElementById("4").style.display = "none";
+                    document.getElementById("5").style.display = "none";
+                }
+            }
+    </script>
+</head>
+
+<body>
+<header class="header">
+    <h1>DRIVERSCHOOL.BY</h1>
+    <a style="text-decoration: none; color: white; font-size: 30px;margin-left: 70%; margin-top: 0.5%;" th:href="@{/personal}">Личный кабинет</a>
+</header>
+
+<div class="container">
+
+    <div class="first-block">
+        <h1>Выбор программы обучения</h1>
+
+        <label for="course-select">Выберите какую категорию вы бы хотели получить:</label>
+
+
+        <select id="course-select" onchange="showDescription()">
+            <option value="">--Выберите категорию--</option>
+            <option th:each="program:${programs}" th:value="${program.getProgram()}"
+                    th:text="${program.getProgram()}"></option>
+
+        </select>
+    </div>
+
+    <div class="second-block">
+        <form th:action="@{/user/course}" method="post" th:each="program:${programs}">
+            <div th:id="${program.getId()}" th:name="${program.getProgram()}" class="course-description"
+                 style="display:none;">
+
+
+                <div id="favourite" th:text="'Категория: ' + ${program.getProgram()} + ' Длительность: ' + ${program.getProgramTerm()} + ' месяцев ' + ' Сумма: ' + ${ program.getPrice()}  + ' BYN ' "></div>
+
+                <input type="text" name="program" th:value="${program.getProgram()}" style="visibility: hidden">
+                <button type="submit">Выбрать</button>
+            </div>
+        </form>
+    </div>
+    <footer class="footer"><h1>DRIVERSCHOOL.BY</h1></footer>
+</div>
+</body>
+</html>

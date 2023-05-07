@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat Alternates' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <title>Course Registration</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+    $( function() {
+              for (let i =0; i<3;i++){
+                $( '#datepicker' ).datepicker({
+                  minDate: 0,showButtonPanel: true
+                });
+              }
+
+
+            }
+    );
+  </script>
+  <style>
+    /* Global styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat Alternates';
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    /* Header styles */
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    /* Form styles */
+    .form-container {
+      margin: 20px auto;
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="email"], input[type="submit"] {
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      padding: 10px;
+      width: 100%;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+
+    /* Media queries */
+    @media only screen and (min-width: 768px) {
+      .header h1 {
+        font-size: 48px;
+      }
+
+      .form-container {
+        padding: 40px;
+      }
+
+      label {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"], input[type="email"], input[type="submit"] {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <h1>Запись</h1>
+</header>
+<section class="form-container">
+  <form th:action="@{/admin/addExam}" method="post">
+    <label for="exam">Зачет:</label>
+    <input type="text" id="exam" name="exam" placeholder="Зачет" required>
+
+    <label for="datepicker">Дата:</label>
+    <input type="text" name="date" id="datepicker" placeholder="ДД/ММ/ГГГГ" required>
+
+    <label for="category">Категория:</label>
+    <select id="category" name="category" required>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+    </select>
+
+
+
+    <input type="submit" value="Добавить">
+  </form>
+</section>
+</body>
+</html>

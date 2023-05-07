@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Page</title>
+  <style>
+    /* Global styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+      background: url("../../playground_assets/img.png") no-repeat;
+      background-size: cover;
+    }
+
+    /* Header styles */
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    /* Form styles */
+    .form-container {
+      margin: 20px auto;
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      padding: 10px;
+      width: 100%;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+
+    /* Media queries */
+    @media only screen and (min-width: 768px) {
+      .header h1 {
+        font-size: 48px;
+      }
+
+      .form-container {
+        padding: 40px;
+      }
+
+      label {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <h1>Страница регистрации</h1>
+</header>
+<section class="form-container">
+  <form th:action="@{/signUp}" method="post">
+    <h3 th:text="${error}"></h3>
+    <label for="firstname">Имя:</label>
+    <input type="text" id="firstname" name="firstname" oninput="this.value = this.value.replace(/[0-9.]/g,'').replace(/\s+/gi,'').replace(/[e,+,@,#,$,%,&,*,/,?,>,<,;,:,,,-]/g, '');"  pattern=".{2,}" placeholder="Имя" minlength="2" required>
+
+    <label for="lastname">Фамилия:</label>
+    <input type="text" id="lastname" name="lastname" oninput="this.value = this.value.replace(/[0-9.]/g,'').replace(/\s+/gi,'').replace(/[e,+,@,#,$,%,&,*,/,?,>,<,;,:,,,-]/g, '');"  pattern=".{2,}" placeholder="Фамилия" minlength="4" required>
+
+    <h6 th:text="${valid}"></h6>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Email" minlength="12" maxlength="24" oninput="this.value = this.value.replace(/\s+/gi,'');" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"  minlength="8" oninput="this.value = this.value.replace(/\s+/gi,'');" placeholder="Enter your password"  required>
+
+    <input type="submit" value="Register">
+  </form>
+  <a th:href="@{/login}">Войти</a>
+</section>
+</body>
+</html>
